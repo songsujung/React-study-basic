@@ -1,6 +1,6 @@
 <!-- 버튼을 몇 번 클릭했는지 세는 어플 react js-->
-<!-- 현재 코드는 실제 개발할 때에 사용하는 방법이 아니다. react에 대해 이해하기 위한 단계 -->
-<!-- Javascript를 이용해 element를 생성했고, 이걸 React Js가 HTML로 번역해줌 -->
+<!-- (element생성)현재 코드는 실제 개발할 때에 사용하는 방법이 아니다. react에 대해 이해하기 위한 단계 -->
+<!-- React Js : Javascript를 이용해 element를 생성하고, 이것을 HTML로 바꾸는 방식에서 효율적이다. -->
 <!DOCTYPE html>
 <html>
     <body>
@@ -13,11 +13,23 @@
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script>
         const root = document.getElementById("root");
-        const span = React.createElement(
-            "span", 
-            { id: "good-span", style: { color: "red" } }, 
-            "Hello. I'm a span."
-        ); // 1번째 argument는 유효한 HTML태그, 2번째 argument엔 property를 줄 수 있다.(class나 id, style 등을 지정), 3번째 argument엔 span의 내용
-        ReactDOM.render(span, root); // render : 위의 span이라는 React element를 가지고 HTML로 만들어 배치한다는 것(사용자에게 보여준다.)
+        // event를 등록
+        // 1번째 argument는 유효한 HTML태그, 2번째 argument엔 property를 줄 수 있다.(event listener), 3번째 argument엔 button의 내용(content)
+        const h3 = React.createElement(
+            "h3", 
+            {
+                onMouseEnter: () => console.log("mouse enter") // on + event는 event listener을 생성한다는 의미(js에서 addEventListener를 대신하는 것)
+            }, 
+            "Hello. I'm a h3."
+        ); 
+        const btn = React.createElement(
+            "button", 
+            {
+                onClick: () => console.log("I'm clicked.")
+            }, 
+            "Click me"
+        );
+        const container = React.createElement("div", null, [h3, btn]);
+        ReactDOM.render(container, root); // render : container이라는 React element를 가지고 HTML로 만들어 배치한다는 것(사용자에게 보여준다.)
     </script>
 </html>
