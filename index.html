@@ -1,4 +1,4 @@
-<!-- 버튼을 몇 번 클릭했는지 세는 어플 react js(좋지 않은 방식의 예제) -->
+<!-- 버튼을 몇 번 클릭했는지 세는 어플 react js -->
 <!-- React Js : Javascript를 이용해 element를 생성하고, 이것을 HTML로 바꾸는 방식에서 효율적이다. -->
 <!DOCTYPE html>
 <html>
@@ -17,12 +17,14 @@
         function App() {
             // React.useState 함수는 counter같은 데이터를 숫자형데이터로 건내주고, 그 데이터값을 바꿀 함수(setCounter)도 준다.
             // 데이터이름을 지정하고, 그 데이터값을 바꿀 함수명은 보통 데이터이름 앞에 set을 붙인다.(관습)
+            // setCounter함수로 데이터를 바꿀 때, 그 새로운 값을 가지고 컴포넌트 전체가 재생성(리렌더링)되고, UI를 refresh한다.
+            // 즉, state(데이터)가 바뀌면 리렌더링이 일어난다.
             const [counter, setCounter] = React.useState(0); // 구조분해할당, 초기값을 0으로 설정
-            // const counter = data[0];
-            // const setCounter = data[1];
             const onClick = () => {
                 setCounter(counter + 1); // setCounter함수로 리렌더링
             }
+            console.log("rendered");
+            console.log(counter); // 클릭할때마다 1, 2, 3, 4...
             return(
                 <div>
                     <h3>Total clicks: {counter}</h3>
