@@ -14,22 +14,22 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        let counter = 0;
-        function countUp() {
-            counter = counter + 1;
-            render(); // 리렌더링
-        }
-        function render() {
-            ReactDOM.render(<Container />, root);
-        }
-        function Container() {
+        function App() {
+            // React.useState 함수는 counter같은 데이터를 숫자형데이터로 건내주고, 그 데이터값을 바꿀 함수(setCounter)도 준다.
+            // 데이터이름을 지정하고, 그 데이터값을 바꿀 함수명은 보통 데이터이름 앞에 set을 붙인다.(관습)
+            const [counter, setCounter] = React.useState(0); // 구조분해할당, 초기값을 0으로 설정
+            // const counter = data[0];
+            // const setCounter = data[1];
+            const onClick = () => {
+                setCounter(counter + 1); // setCounter함수로 리렌더링
+            }
             return(
                 <div>
                     <h3>Total clicks: {counter}</h3>
-                    <button onClick={countUp}>Click me</button>
+                    <button onClick={onClick}>Click me</button>
                 </div>
             );
         }
-        render();
+        ReactDOM.render(<App />, root);
     </script>
 </html>
