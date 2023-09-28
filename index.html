@@ -21,12 +21,12 @@
             // input에 새로운 값을 입력할 때마다 state를 업데이트하는 이벤트
             const onChange = (event) => {
                 setAmount(event.target.value); // 입력하는 값이 즉시 업데이트
-            };
+            }
             const reset = () => setAmount(0); // 디폴트값을 0으로 설정(초기화)
             const onInvert = () => {
                 reset(); // Flip버튼을 누를때마다 입력값들이 0으로 초기화
                 setInverted((current) => !current); // 현재 값을 받아서 그 반대 값으로 둔다.(true면 false로, false면 true로)
-            };
+            }
             return(
                 /* 
                 * inverted의 상태(false, true)에 따라서 input을 disabled 또는 enabled로 바꿀 수 있다.
@@ -63,8 +63,45 @@
                 </div>
             );
         }
-        function KmToMiles() {
-            return <h3>KM 2 M</h3>
+        function KmToM() {
+            const [amount, setAmount] = React.useState(0);
+            const [inverted, setInverted] = React.useState(false);
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            }
+            const reset = () => setAmount(0);
+            const onInvert = () => {
+                reset();
+                setInverted((current) => !current);
+            }
+            return(
+                <div>
+                    <div>
+                        <label htmlFor="km">Km</label>
+                        <input 
+                            value={inverted ? amount / 1000 : amount}
+                            id="km"
+                            placeholder="Km"
+                            type="number"
+                            onChange={onChange}
+                            disabled={inverted}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="m">m</label>
+                        <input 
+                            value={inverted ? amount : amount * 1000}
+                            id="m"
+                            placeholder="M"
+                            type="number"
+                            onChange={onChange}
+                            disabled={!inverted}
+                        />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                </div>
+            );
         }
         function App() {
             const [index, setIndex] = React.useState("xx");
@@ -82,7 +119,7 @@
                     <hr />
                     {index === "xx" ? "Please select your units" : null}
                     {index === "0" ? <MinutesToHours /> : null}
-                    {index === "1" ? <KmToMiles /> : null}
+                    {index === "1" ? <KmToM /> : null}
                 </div>
             );
         }
