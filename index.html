@@ -1,5 +1,4 @@
-<!-- 버튼을 몇 번 클릭했는지 세는 어플 react js -->
-<!-- React Js : Javascript를 이용해 element를 생성하고, 이것을 HTML로 바꾸는 방식에서 효율적이다. -->
+<!-- 분에서 시간으로, 시간에서 분으로 등 unit conversion(단위 변환) 앱 -->
 <!DOCTYPE html>
 <html>
     <body>
@@ -7,32 +6,38 @@
     </body>
     <!-- react import -->
     <!-- react JS는 엔진과 같은 역할 -->
-    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
     <!-- react-dom은 react element를 HTML에 두는 역할(library, package 등으로 불림) -->
-    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
     <!-- 브라우저에서는 JSX코드를 인식하지 못하기 때문에 인식하는 코드로 변환시켜주기 위한 코드(이 코드를 사용하는 것 외에 더 좋은 방식이 있긴 하다.) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        const root = document.getElementById("root");
         function App() {
-            // React.useState 함수는 counter같은 데이터를 숫자형데이터로 건내주고, 그 데이터값을 바꿀 함수(setCounter)도 준다.
-            // 데이터이름을 지정하고, 그 데이터값을 바꿀 함수명은 보통 데이터이름 앞에 set을 붙인다.(관습)
-            // setCounter함수로 데이터를 바꿀 때, 그 새로운 값을 가지고 컴포넌트 전체가 재생성(리렌더링)되고, UI를 refresh한다.
-            // 즉, state(데이터)가 바뀌면 리렌더링이 일어난다.
-            const [counter, setCounter] = React.useState(0); // 구조분해할당, 초기값을 0으로 설정
-            const onClick = () => {
-                //setCounter(counter + 1); // setCounter함수로 리렌더링
-                setCounter((current) => current + 1); // 함수를 이용하면 current가 언제나 현재 state을 얻도록 보장해준다.(예상치 못한 업데이트가 발생하는 등의 경우에도)
+            // JSX에서 for, class같은 Js언어를 사용하면 오류가 난다. htmlFor이라고 적어줘야 함 
+            // useState는 array를 제공한다. 첫 번째 element가 현재의 값이 되고, 두 번째 element는 현재 값을 수정하고, component를 새로고침할 때 쓰는 함수가 들어감
+            const [minutes, setMinutes] = React.useState(0); // default값을 0으로 설정
+            // input에 새로운 값을 입력할 때마다 state를 업데이트하는 이벤트
+            const onChange = (event) => {
+                setMinutes(event.target.value); // 입력하는 값이 즉시 업데이트
             }
-            console.log("rendered");
-            console.log(counter); // 클릭할때마다 1, 2, 3, 4...
             return(
                 <div>
-                    <h3>Total clicks: {counter}</h3>
-                    <button onClick={onClick}>Click me</button>
+                    <h1>Super Converter</h1>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input 
+                        value={minutes} 
+                        id="minutes" 
+                        placeholder="Minutes" 
+                        type="number"
+                        onChange={onChange}
+                    />
+                    <h4>You want to convert {minutes}</h4>
+                    <label htmlFor="hours">Hours</label>
+                    <input id="hours" placeholder="Hours" type="number" />
                 </div>
             );
         }
+        const root = document.getElementById("root");
         ReactDOM.render(<App />, root);
     </script>
 </html>
