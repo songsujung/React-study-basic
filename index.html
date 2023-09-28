@@ -21,7 +21,8 @@
             // 즉, state(데이터)가 바뀌면 리렌더링이 일어난다.
             const [counter, setCounter] = React.useState(0); // 구조분해할당, 초기값을 0으로 설정
             const onClick = () => {
-                setCounter(counter + 1); // setCounter함수로 리렌더링
+                //setCounter(counter + 1); // setCounter함수로 리렌더링
+                setCounter((current) => current + 1); // 함수를 이용하면 current가 언제나 현재 state을 얻도록 보장해준다.(예상치 못한 업데이트가 발생하는 등의 경우에도)
             }
             console.log("rendered");
             console.log(counter); // 클릭할때마다 1, 2, 3, 4...
