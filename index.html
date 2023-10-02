@@ -15,6 +15,7 @@
         // Btn 함수 컴포넌트의 첫 번째 인자인 오브젝트로 부터 text라는 props를 받아내고 있다.
         // Btn(props) = Btn({}) props는 오브젝트이기 때문에 {}로 표현 가능
         function Btn({text, onClick}) {
+            console.log(text, "was rendered");
             // botton은 onClick이라는 이름의 onClick 이벤트 리스너를 갖게 된다.
             return <button 
                 onClick={onClick}
@@ -30,7 +31,10 @@
         }
         // Btn을 렌더링하는 컴포넌트( App()은 부모 컴포넌트 )
         // <Btn text={Value} onClick={changeValue} />, <Btn text="Continue"/>는 커스텀컴포넌트
+        const MemorizeBtn = React.memo(Btn);
         function App() {
+            // 부모컴포넌트의 상태(state)가 변경될 때 return값 안의 모든 게 리렌더링 된다. (중요)
+            // 하지만, <Btn text="Continue"/>는 상태가 바뀌지 않기 때문에 리렌더링이 필요가 없기때문에 React Memo를 사용해 막아주자.(앱이 느려지는 원인이 될 수도 있어서)
             const [Value, setValue] = React.useState("Save Changes");
             const changeValue = () => setValue("Revert Changes");
             // 여기에서의 onClick={changeValue}은 실제 이벤트리스너가 아니고, 단지 Btn으로 들어가는 prop임(이름만 같을 뿐 이벤트리스너X)
@@ -38,8 +42,8 @@
             // Btn 함수 컴포넌트의 인자값에 text, onClick을 넣어 줘야 실행됨
             return (
                 <div>
-                    <Btn text={Value} onClick={changeValue} />
-                    <Btn text="Continue"/>
+                    <MemorizeBtn text={Value} onClick={changeValue} />
+                    <MemorizeBtn text="Continue"/>
                 </div>
             );
         }
